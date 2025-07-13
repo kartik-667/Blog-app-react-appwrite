@@ -3,10 +3,8 @@ import conf from '../conf'
 import authService from './appwrite/auth'
 
 function App() {
-  let envval=conf.vite_test
-  
+  let envval="123"
 
-  
   return (
     <>
      <h1>this is the blog app</h1>

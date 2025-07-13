@@ -6,7 +6,6 @@ const conf={
     appwrite_url:String(import.meta.env.VITE_APPWRITE_URL),
     bucket_id:String(import.meta.env.VITE_BUCKET_ID),
 
-
 }
 
 export default conf
