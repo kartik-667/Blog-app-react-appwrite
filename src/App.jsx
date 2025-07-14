@@ -3,12 +3,37 @@ import conf from '../conf'
 import authService from './appwrite/auth'
 import { useContext, useEffect, useState } from 'react'
 import { Mycontext } from '../Mycontext'
-
+import Header from './components/Header/Header'
+import Input from './components/Input'
 function App() {
   let envval="123"
   const [loading, setloading] = useState(false)
   const {user,setuser,loggedIn, setloggedIn,test}=useContext(Mycontext)
   if(test) console.log(test);
+
+  async function adduser(email,password,name){
+    try {
+      const res=await authService.createUser(email,password,name)   
+      console.log("the new user is ",res);
+      if(res){
+        setuser(res)
+        setloggedIn(true)
+
+      }
+         
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  }
+  async function handlelogout(){
+    const res=await authService.logout()
+    if(res){
+      setuser("")
+      setloggedIn(false)
+    }
+  }
   
   
   
@@ -31,7 +56,11 @@ function App() {
 
   return (
     <>
+    <Header></Header>
+    
      <h1>this is the blog app</h1>
+     <button onClick={()=> adduser("kartik@667.com","12345678","kartik")}> add user here </button>
+    
      <h1>i am in the app right now and testing the env variable</h1>
      <h1 className=''>i am creating login now</h1>
      {envval && (
