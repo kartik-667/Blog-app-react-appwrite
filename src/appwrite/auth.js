@@ -19,7 +19,7 @@ class Auth{
             if(newuser){
                 console.log("user created successfully",newuser);
                 //login also here
-                const login_session=this.login(email,password)
+                const login_session=await this.login(email,password)
                 return login_session
                 
             }else{
@@ -67,6 +67,7 @@ class Auth{
     async logout(){
         try {
             const result=await this.account.deleteSessions()
+            return result
 
             
         } catch (error) {
