@@ -7,7 +7,7 @@ function Input({label, type="text",classname="",...props}) {
       {label && (
         <label htmlFor="">{label}</label>
       )}
-      <input type={type} className={`${classname}`} />
+      <input type={type} className={`${classname}`} {...props}  />
     </div>
   )
 }

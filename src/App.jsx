@@ -6,6 +6,8 @@ import { Mycontext } from '../Mycontext'
 import Header from './components/Header/Header'
 import Input from './components/Input'
 import Postcard from './components/Postcard'
+import Signup from './components/Signup'
+import Login from './components/Login'
 
 
 function App() {
@@ -60,6 +62,9 @@ function App() {
   return (
     <>
     <Header></Header>
+
+    <Signup/>
+    <Login></Login>
 
     {/* <Postcard/> */}
     

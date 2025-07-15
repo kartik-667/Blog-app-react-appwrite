@@ -1,51 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { Mycontext } from '../../Mycontext'
 import authService from '../appwrite/auth'
 import { useForm } from 'react-hook-form'
-import { Mycontext } from '../../Mycontext'
 import Input from './Input'
 import Button  from './Button'
 
 
-function Login() {
-    const navigate=useNavigate()
-    const {setloggedIn,  setuser}=useContext(Mycontext)
+function Signup() {
     const {register, handleSubmit}=useForm()
+    const navigate=useNavigate()
+    const {setuser, setloggedIn}=useContext(Mycontext)
     const [error, seterror] = useState("")
 
-    const login =async  (data)=>{
+    const signup= async (data)=>{
         seterror("")
         try {
-            const session=await authService.login(data)
+            const session=await authService.createUser(data)
             if(session){
                 const curruser=await authService.getCurrentUser()
                 if(curruser){
-                    setloggedIn(true)
                     setuser(curruser)
+                    setloggedIn(true)
 
-                    navigate("/") //goes to home page after successful login
+                    navigate("/")
 
                 }
-
             }
             
         } catch (error) {
-            console.log("error occured",error);
-            seterror(error.message || "Login error")
+            seterror(error.message || "Signup error")
+            console.log("some error occured");
             
             
         }
 
     }
 
-
-    
-
-
-
-
   return (
-    <div className='flex items-center justify-center w-full'>
+   <div className='flex items-center justify-center w-full'>
         <div className='w-full mx-auto bg-gray-100 rounded-xl border'>
             <div className='mb-2 flex justify-center'>
                 <span className='inline-block w-full max-w-[100px]'>
@@ -53,12 +46,12 @@ function Login() {
                 </span>
             </div>
 
-            <h2 className='text-center text-2xl font-bold leading-tight'>Log in to your account</h2>
+            <h2 className='text-center text-2xl font-bold leading-tight'>Sign in to your account</h2>
 
             <p>
-                Dont have an account ?
-                <Link to="/signup" className='hover:underline'>
-                    Sign Up
+                Already have an account ?
+                <Link to="/login" className='hover:underline'>
+                    Log In
                 </Link>
             </p>
 
@@ -67,20 +60,24 @@ function Login() {
                 <p className='text-red-500 text-center mt-8'>{error} </p>
 
             )}
-            <form  onSubmit={handleSubmit(login)}>
+            <form  onSubmit={handleSubmit(signup)}>
+                <Input label="Name:" placeholder="Enter your name" {...register("name",{
+                    required:true
+                })}></Input>
             <Input label="Email: " placeholder="Enter your email" 
             {...register("email",{
                 required:true,
-               pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Invalid email format",
-                }
+                pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+             message: "Invalid email format",
+}
 
                 
             })}  ></Input>
 
             <Input type="password" placeholder="Enter password" label="Password: "  {...register("password", {required:true})}></Input>
-            <Button type="submit">Log In</Button>
+
+            <Button type="submit">Sign Up</Button>
 
             </form>
 
@@ -94,4 +91,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Signup
