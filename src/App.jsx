@@ -5,6 +5,9 @@ import { useContext, useEffect, useState } from 'react'
 import { Mycontext } from '../Mycontext'
 import Header from './components/Header/Header'
 import Input from './components/Input'
+import Postcard from './components/Postcard'
+
+
 function App() {
   let envval="123"
   const [loading, setloading] = useState(false)
@@ -57,6 +60,8 @@ function App() {
   return (
     <>
     <Header></Header>
+
+    {/* <Postcard/> */}
     
      <h1>this is the blog app</h1>
      <button onClick={()=> adduser("kartik@667.com","12345678","kartik")}> add user here </button>

@@ -3,7 +3,7 @@ import authService from '../../appwrite/auth'
 import { Mycontext } from '../../../Mycontext'
 import { Link, Navigate , useNavigate} from 'react-router-dom'
 import Logout from './Logout'
-
+import Select from '../Select'
 
 function Header() {
 
@@ -58,7 +58,8 @@ function Header() {
                 <button className='hover:bg-blue-100 transition'>logo comes here</button>
             </Link>
         </div>
-
+        
+        <Select ></Select>
         <ul className='flex ml-auto '>
             {navItems.map((item)=>
                 item.active==true ? (
