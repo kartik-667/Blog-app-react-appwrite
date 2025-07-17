@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import dbService from '../appwrite/db'
-function Postcard({$id,featuredImage,title}) {
+function Postcard({post}) {
+  const {$id,featuredImage,title}=post
   return (
     <Link to={`/post/${$id}`}>
         <div className='w-full bg-gray-100 rounded-lg'>

@@ -9,6 +9,13 @@ import Postcard from './components/Postcard'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Postform from './components/post-form/Postform'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/pages/Home'
+import AuthLayout from './components/AuthLayout'
+import Allposts from './components/pages/Allposts'
+import Editpost from './components/pages/Editpost'
+import Post from './components/pages/Post'
+import Addpost from './components/pages/Addpost'
 
 function App() {
   let envval="123"
@@ -40,9 +47,6 @@ function App() {
     }
   }
   
-  
-  
-
 
   useEffect(()=>{
     setloading(true)
@@ -62,11 +66,51 @@ function App() {
   return (
     <>
     <Header></Header>
-    <Postform></Postform>
     
+    <Routes>
+      <Route path='/' element={<Home />}></Route>
 
+      <Route path='/login' element={
+        <AuthLayout authentication={false}>
+          <Login></Login>
+           </AuthLayout>
+      }></Route>
+      <Route path='/signup' element={
+        <AuthLayout authentication={false}>
+          <Signup></Signup>
+           </AuthLayout>
+      }></Route>
 
-    {/* <Postcard/> */}
+      <Route path='/all-posts' element={
+        <AuthLayout authentication>
+          <Allposts></Allposts>
+          
+
+        </AuthLayout>
+      }></Route>
+
+      <Route path='/edit-post/:slug' element={
+        <AuthLayout authentication>
+          <Editpost></Editpost>
+          
+
+        </AuthLayout>
+      }></Route>
+
+      <Route path='/post/:slug' element={Post}>
+
+      </Route>
+
+      <Route path='/add-post' element={
+         <AuthLayout authentication>
+          <Addpost></Addpost>
+          
+
+        </AuthLayout>
+
+      }></Route>
+      
+      </Routes>
     
     
     </>

@@ -6,7 +6,7 @@ import { Mycontext } from '../../Mycontext'
 
 function AuthLayout({children, authentication=true}) {
     const navigate=useNavigate()
-    const [loader, setloader] = useState(false)
+    const [loader, setloader] = useState(true)
     const {loggedIn}=useContext(Mycontext)
 
     const authStatus=loggedIn
@@ -14,17 +14,19 @@ function AuthLayout({children, authentication=true}) {
 
     //fix this file later
     useEffect(()=>{
+      if(authentication && authStatus !== authentication){
+            navigate("/login")
+        } else if(!authentication && authStatus !== authentication){
+            navigate("/")
+        }
+        setloader(false)
 
     },[authStatus,navigate,authentication])
 
     
 
 
-  return (
-    <div>
-      <h1>Auth layout</h1>
-    </div>
-  )
+ return loader ? <h1>Loading...</h1> : <> {children} </>
 }
 
 export default AuthLayout
