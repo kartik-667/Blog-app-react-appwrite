@@ -5,6 +5,7 @@ const conf={
     collection_id:String(import.meta.env.VITE_COLLECTION_ID),
     appwrite_url:String(import.meta.env.VITE_APPWRITE_URL),
     bucket_id:String(import.meta.env.VITE_BUCKET_ID),
+    tinymce_api:String(import.meta.env.VITE_TINYMCE_API)
 }
 
 

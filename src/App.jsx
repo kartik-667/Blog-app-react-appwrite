@@ -8,7 +8,7 @@ import Input from './components/Input'
 import Postcard from './components/Postcard'
 import Signup from './components/Signup'
 import Login from './components/Login'
-
+import Postform from './components/post-form/Postform'
 
 function App() {
   let envval="123"
@@ -62,23 +62,13 @@ function App() {
   return (
     <>
     <Header></Header>
+    <Postform></Postform>
+    
 
-    <Signup/>
-    <Login></Login>
 
     {/* <Postcard/> */}
     
-     <h1>this is the blog app</h1>
-     <button onClick={()=> adduser("kartik@667.com","12345678","kartik")}> add user here </button>
     
-     <h1>i am in the app right now and testing the env variable</h1>
-     <h1 className=''>i am creating login now</h1>
-     {envval && (
-     <h2>val of env is {conf.appwrite_url}</h2>
-     
-    )}
-    <h1>the user is {user}</h1>
-    <h2>val of env is {conf.project_id}</h2>
     </>
   )
 }

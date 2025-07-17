@@ -100,6 +100,7 @@ class Service {
         ID.unique(),
         file
       );
+      return result
     } catch (error) {
       console.log("some error occured", error);
     }
