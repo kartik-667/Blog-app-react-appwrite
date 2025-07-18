@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import authService from '../../appwrite/auth'
 import { Mycontext } from '../../../Mycontext'
-
+import Button from '../Button'
 function Logout() {
     const {setuser, setloggedIn}=useContext(Mycontext)
 
@@ -17,7 +17,7 @@ function Logout() {
 
   return (
     <div>
-       <button onClick={handlelogout} className='hover:bg-blue-100 transition'>logout here</button>
+       <Button onClick={handlelogout} data="Logout" className='hover:bg-blue-100 transition'>Logout</Button>
     </div>
   )
 }

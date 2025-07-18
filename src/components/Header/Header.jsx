@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import authService from '../../appwrite/auth'
 import { Mycontext } from '../../../Mycontext'
 import { Link, Navigate , useNavigate} from 'react-router-dom'
@@ -7,7 +7,7 @@ import Select from '../Select'
 
 function Header() {
 
-    const {setuser, setloggedIn, loggedIn}=useContext(Mycontext)
+    const {setuser, setloggedIn, loggedIn,user}=useContext(Mycontext)
 
     const navigate=useNavigate()
 
@@ -16,7 +16,7 @@ function Header() {
     const navItems=[ //contains items that will be shown in navbar
         {
             name:"Home",
-            slug:"/home",
+            slug:"/",
             active:true
 
         },
@@ -47,6 +47,27 @@ function Header() {
         },
     ]
 
+    useEffect(() => {
+      const fetchuser=async ()=>{
+        try {
+            const res=await authService.getCurrentUser()
+            if(res){
+                setloggedIn(true)
+                setuser(res)
+            }
+            
+        } catch (error) {
+            console.log('user not loggedin');
+            
+            
+        }
+      }
+      fetchuser()
+    
+      
+    }, [])
+    
+
 
 
 
@@ -59,7 +80,7 @@ function Header() {
             </Link>
         </div>
         
-        <Select ></Select>
+        {/* <Select ></Select> */}
         <ul className='flex ml-auto '>
             {navItems.map((item)=>
                 item.active==true ? (
@@ -74,7 +95,7 @@ function Header() {
                 ) : null
 
             )}
-            {authStatus && (
+            {authStatus && user  && (
                 <Logout></Logout>
             )}
 

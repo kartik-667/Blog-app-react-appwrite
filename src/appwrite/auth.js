@@ -12,14 +12,14 @@ class Auth{
         
     }
 
-    async createUser(email,password,name){
+    async createUser({email,password,name}){
         try {
             const newuser=await this.account.create(ID.unique(),email,password,name);
             
             if(newuser){
                 console.log("user created successfully",newuser);
                 //login also here
-                const login_session=await this.login(email,password)
+                const login_session=await this.login({email,password})
                 return login_session
                 
             }else{
@@ -36,7 +36,7 @@ class Auth{
 
     }
 
-    async login(email,password){
+    async login({email,password}){
         try {
             const session=await this.account.createEmailPasswordSession(email,password)
             return session
