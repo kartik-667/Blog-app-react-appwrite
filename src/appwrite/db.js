@@ -15,18 +15,19 @@ class Service {
 
   async createPost({ title, content, featuredImage, status, userId, slug }) {
     try {
-      const result = await this.databases.createDocument({
-        databaseId: conf.database_url,
-        collectionId: conf.collection_id,
-        documentId: slug,
-        data: {
+      const result = await this.databases.createDocument(
+         conf.database_url,
+        conf.collection_id,
+         slug,
+         {
           title,
           content,
           featuredImage,
           status,
           userId,
         },
-      });
+      );
+      return result
     } catch (error) {
       console.log("some error occured", error);
     }
@@ -128,6 +129,20 @@ class Service {
         console.log("some error occured", error);
         
     }
+    }
+
+
+    async getFileView(fileId){
+      try {
+        const res=await this.bucket.getFileView(conf.bucket_id,fileId)
+        if(res) return res
+        
+      } catch (error) {
+        console.log('some error occured',error);
+        
+        
+      }
+
     }
 
     

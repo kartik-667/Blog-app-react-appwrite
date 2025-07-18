@@ -68,15 +68,17 @@ function Postform({post}) {
 
     }
 
-    const slugTransform=useCallback((value)=>{
-        if(value && typeof value==="string"){
-            return value.trim().toLowerCase().
-            replace(/^[a-zA-Z\d\s]+/g,'-')
-            .replace(/\s/g,'-')
-        }
-        return ""
-
-    },[])
+    const slugTransform = useCallback((value) => {
+    if (value && typeof value === "string") {
+        return value
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')    // replace non-alphanum with hyphen
+            .replace(/^-+|-+$/g, '')        // remove leading/trailing hyphens
+            .replace(/--+/g, '-');          // replace multiple hyphens with single
+    }
+    return "";
+}, []);
 
 
 
@@ -100,52 +102,114 @@ function Postform({post}) {
 
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-        <div className='w-2/3 px-2'>
-            <Input label="Title: " placeholder="Title" className="mb-4" {...register('title',{
-                required:true
-            })} />
+    // <form onSubmit={handleSubmit(submit)}>
+    //     <div className='w-2/3 px-2'>
+    //         <Input label="Title: " placeholder="Title" className="mb-4" {...register('title',{
+    //             required:true
+    //         })} />
 
-            <Input onInput={(e)=>{
-                setValue("slug",slugTransform(e.currentTarget.value))
+    //         <Input onInput={(e)=>{
+    //             setValue("slug",slugTransform(e.currentTarget.value))
 
-            }} label="Slug: " placeholder="Slug"
-            className="mb-4" {...register("slug",{
-                required:true
-            })}  />
+    //         }} label="Slug: " placeholder="Slug"
+    //         className="mb-4" {...register("slug",{
+    //             required:true
+    //         })}  />
 
-            {/* add RTE editor here */}
-            <RTE label="Content:" name="content" control={control} defaultValue={getValues("content")} ></RTE>
+    //         {/* add RTE editor here */}
+    //         <RTE label="Content:" name="content" control={control} defaultValue={getValues("content")} ></RTE>
         
-         </div>
-         <div className='w-1/3 px-2'>
-            <Input label="Featured Image:" type="file"
-                className='mb-4' accept="image/png, image/jpg , image/jpeg, image/gif"
+    //      </div>
+    //      <div className='w-1/3 px-2'>
+    //         <Input label="Featured Image:" type="file"
+    //             className='mb-4' accept="image/png, image/jpg , image/jpeg, image/gif"
 
-                {...register('image',{required:!post})}
+    //             {...register('image',{required:!post})}
 
-            /> 
-            {post && (
-                <div className="w-full mb-4">
-                    <img className='rounded-lg' src={dbService.getFilePreview(post.featuredImage)} alt={post.title} />
-                </div>
-            )}
-            <Select options={["Active","Inactive"]}
-            label="Status"
-            className="mb-4"
-            {...register("status",
-                {required:true}
-            )} />
-            <Button className='w-full' type="submit">
-                {post ? "Update":"Submit"}
-            </Button>
+    //         /> 
+    //         {post && (
+    //             <div className="w-full mb-4">
+    //                 <img className='rounded-lg' src={dbService.getFilePreview(post.featuredImage)} alt={post.title} />
+    //             </div>
+    //         )}
+    //         <Select options={["Active","Inactive"]}
+    //         label="Status"
+    //         className="mb-4"
+    //         {...register("status",
+    //             {required:true}
+    //         )} />
+    //         <Button className='w-full' type="submit">
+    //             {post ? "Update":"Submit"}
+    //         </Button>
             
 
 
-         </div>
+    //      </div>
 
 
-    </form>
+    // </form>
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col md:flex-row gap-6 p-4 bg-white rounded-xl shadow-md max-w-5xl mx-auto">
+    <div className='md:w-2/3 w-full px-2 flex flex-col gap-4'>
+        <Input
+            label="Title:"
+            placeholder="Title"
+            className="mb-2 border border-gray-300 rounded-md p-2 focus:border-blue-400 focus:outline-none transition"
+            {...register('title', { required: true })}
+        />
+
+        <Input
+            onInput={(e) => setValue("slug", slugTransform(e.currentTarget.value))}
+            label="Slug:"
+            placeholder="Slug"
+            className="mb-2 border border-gray-300 rounded-md p-2 focus:border-blue-400 focus:outline-none transition"
+            {...register("slug", { required: true })}
+        />
+
+        <div className="flex flex-col gap-2">
+            <label className="text-gray-700 font-medium">Content:</label>
+            <div className="border border-gray-300 rounded-md p-2 bg-white">
+                <RTE
+                    label=""
+                    name="content"
+                    control={control}
+                    defaultValue={getValues("content")}
+                />
+            </div>
+        </div>
+    </div>
+
+    <div className='md:w-1/3 w-full px-2 flex flex-col gap-4'>
+        <Input
+            label="Featured Image:"
+            type="file"
+            className='border border-gray-300 rounded-md p-2 focus:border-blue-400 focus:outline-none transition'
+            accept="image/png, image/jpg , image/jpeg, image/gif"
+            {...register('image', { required: !post })}
+        />
+        {post && (
+            <div className="w-full rounded-lg overflow-hidden border border-gray-200">
+                <img
+                    className='w-full object-cover'
+                    src={dbService.getFilePreview(post.featuredImage)}
+                    alt={post.title}
+                />
+            </div>
+        )}
+        <Select
+            options={["Active", "Inactive"]}
+            label="Status"
+            className="border border-gray-300 rounded-md p-2 focus:border-blue-400 focus:outline-none transition"
+            {...register("status", { required: true })}
+        />
+        <Button
+            className='w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md transition duration-200'
+            type="submit"
+        >
+            {post ? "Update" : "Submit"}
+        </Button>
+    </div>
+</form>
+
   )
 }
 

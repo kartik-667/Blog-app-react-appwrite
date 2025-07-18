@@ -97,7 +97,7 @@ function App() {
         </AuthLayout>
       }></Route>
 
-      <Route path='/post/:slug' element={Post}>
+      <Route path='/post/:slug' element={<Post></Post>}>
 
       </Route>
 

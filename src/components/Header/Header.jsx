@@ -40,8 +40,8 @@ function Header() {
 
         },
         {
-            name:"Add posts",
-            slug:"/add-posts",
+            name:"Add post",
+            slug:"/add-post",
             active:authStatus
 
         },

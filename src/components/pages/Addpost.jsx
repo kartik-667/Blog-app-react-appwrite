@@ -3,7 +3,7 @@ import Postform from '../post-form/Postform'
 function Addpost() {
   return (
     <div className='py-8'>
-        <Postform></Postform>
+        <Postform ></Postform>
       
     </div>
   )

@@ -22,6 +22,7 @@ function Allposts() {
       
     }, [])
     
+    
 
   return (
     <div className='w-full py-8'>
