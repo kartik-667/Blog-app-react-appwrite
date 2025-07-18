@@ -314,6 +314,7 @@ function Post() {
             dbService.getPost(slug)
                 .then((fetchedPost) => {
                     if (fetchedPost) {
+                        
                         setPost(fetchedPost);
                         dbService.getFileView(fetchedPost.featuredImage)
                             .then((url) => {

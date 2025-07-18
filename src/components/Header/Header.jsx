@@ -4,6 +4,7 @@ import { Mycontext } from '../../../Mycontext'
 import { Link, Navigate , useNavigate} from 'react-router-dom'
 import Logout from './Logout'
 import Select from '../Select'
+import bloghub from '../../../public/bloghub.png'
 
 function Header() {
 
@@ -73,20 +74,22 @@ function Header() {
 
 
   return (
-    <header className='w-full bg-gray-500 p-2 flex  '>
+    <header className='w-full bg-gray-500 p-2 flex justify-around  '>
         <div className="left">
             <Link to='/'>
-                <button className='hover:bg-blue-100 transition'>logo comes here</button>
+                <button className=' transition'>
+                    <img src="/bloghub.png" alt="" className='h-20  ml-6 w-20 rounded-md hover:rounded-md' />
+                </button>
             </Link>
         </div>
         
         {/* <Select ></Select> */}
-        <ul className='flex ml-auto '>
+        <ul className='flex ml-auto justify-center items-center '>
             {navItems.map((item)=>
                 item.active==true ? (
                     <li key={item.name}>
                         <Link to={item.slug}>
-                            <button  className='hover:bg-blue-300 rounded-full transition-all px-6 py-2 duration-200 '>{item.name}</button>
+                            <button  className='hover:bg-blue-300 rounded-full transition-all px-6 py-2 duration-200 text-lg '>{item.name}</button>
 
                         </Link>
 

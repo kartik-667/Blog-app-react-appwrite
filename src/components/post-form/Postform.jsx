@@ -148,7 +148,12 @@ function Postform({post}) {
 
 
     // </form>
-    <form onSubmit={handleSubmit(submit)} className="flex flex-col md:flex-row gap-6 p-4 bg-white rounded-xl shadow-md max-w-5xl mx-auto">
+    <>
+    <h1 className='text-center text-3xl mb-2  font-semibold'>Create a new BLOG</h1>
+    
+    
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col md:flex-row gap-6 p-4 bg-white rounded-xl shadow-xl max-w-5xl mx-auto">
+        
     <div className='md:w-2/3 w-full px-2 flex flex-col gap-4'>
         <Input
             label="Title:"
@@ -209,6 +214,7 @@ function Postform({post}) {
         </Button>
     </div>
 </form>
+    </>
 
   )
 }

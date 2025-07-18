@@ -55,13 +55,13 @@ function Home() {
     }
 
   return (
-    <div className='w-full py-8'>
-        <div className='flex flex-wrap'>
+    <div className='w-full py-8 p-4'>
+        <div className='flex flex-row  flex-wrap'>
             {posts.map((post)=> (
                 <div className='p-2 w-1/4'>
                     <Postcard post={post}/>
                 </div>
-
+    
             ))} </div>
 
       

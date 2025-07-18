@@ -17,7 +17,7 @@ function Logout() {
 
   return (
     <div>
-       <Button onClick={handlelogout} data="Logout" className='hover:bg-blue-100 transition'>Logout</Button>
+       <Button onClick={handlelogout} data="Logout" className='hover:bg-blue-100 transition text-lg'>Logout</Button>
     </div>
   )
 }
